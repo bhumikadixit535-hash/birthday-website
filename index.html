@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:Poppins;
+background:url('background.jpg') no-repeat center center fixed;
+background-size:cover;
+overflow:hidden;
+}
+
+/* slides */
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+opacity:0;
+transform:scale(1.05);
+transition:1.5s;
+}
+.active{
+opacity:1;
+transform:scale(1);
+z-index:1;
+}
+
+/* intro */
+#slide0{
+background:rgba(0,0,0,0.5);
+}
+#slide0 .title{
+color:#93c5fd;
+text-shadow:0 0 15px #60a5fa,0 0 30px #93c5fd;
+font-size:2rem;
+max-width:80%;
+}
+
+/* ✨ blue glow */
+.glow{
+color:white;
+text-shadow:
+0 0 8px white,
+0 0 15px #93c5fd,
+0 0 25px #60a5fa,
+0 0 40px #3b82f6;
+}
+
+/* 💖 pink glow */
+.glow-pink{
+color:#ff4da6;
+text-shadow:
+0 0 8px #ff4da6,
+0 0 15px #ff66b2,
+0 0 25px #ff85c1,
+0 0 40px #ff99cc;
+}
+
+/* hero */
+.hero-box{
+background:#1e40af;
+padding:40px 60px;
+border-radius:30px;
+position:relative;
+}
+
+/* text */
+.title{
+font-size:2.3rem;
+text-align:center;
+font-weight:bold;
+font-style:italic;
+color:black;
+text-shadow:0 0 8px rgba(255,255,255,0.6);
+}
+#slide1 .title{
+color:white;
+text-shadow:0 0 15px white,0 0 30px #93c5fd;
+}
+
+/* stickers */
+.bouquet{position:absolute;top:-40px;right:-40px;width:120px;}
+.heartSticker{position:absolute;bottom:-40px;left:-40px;width:120px;}
+
+/* button */
+button{
+margin-top:25px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:white;
+cursor:pointer;
+}
+
+/* cake */
+#cakeImage{
+width:220px;
+border-radius:20px;
+margin-top:20px;
+}
+
+/* gifts */
+.gifts{display:flex;gap:40px;margin-top:20px;}
+.gift{
+font-size:80px;
+cursor:pointer;
+transition:0.4s;
+}
+.gift:hover{
+transform:scale(1.3);
+filter:drop-shadow(0 0 10px white);
+}
+
+/* bubbles */
+.bubble{
+position:absolute;
+background:white;
+color:black;
+padding:12px 18px;
+border-radius:15px;
+max-width:220px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* hearts */
+.heart{
+position:absolute;
+color:#60a5fa;
+animation:float 10s linear infinite;
+}
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+
+/* polaroid */
+.polaroid{
+background:white;
+padding:15px 15px 40px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+transform:rotate(-5deg);
+text-align:center;
+width:260px;
+}
+.polaroid img{width:100%;}
+
+/* paper */
+.paper{
+background:repeating-linear-gradient(white,white 28px,#cbd5e1 29px);
+padding:30px;border-radius:10px;width:80%;max-width:600px;
+height:70vh;overflow:auto;
+}
+.paper p{line-height:1.8;}
+
+/* final */
+.final{
+font-size:3rem;
+font-weight:bold;
+font-style:italic;
+color:red;
+text-shadow:0 0 20px red,0 0 40px red;
+}
+
+/* floating photos */
+.floating-photo{
+position:absolute;
+width:120px;
+border-radius:20px;
+animation:floatPhoto 12s infinite ease-in-out;
+}
+@keyframes floatPhoto{
+0%{transform:translateY(0);}
+50%{transform:translateY(-30px);}
+100%{transform:translateY(0);}
+}
+
+/* sparkles */
+.sparkle{
+position:absolute;
+width:6px;height:6px;
+background:white;border-radius:50%;
+animation:sparkle 2s infinite;
+}
+@keyframes sparkle{
+0%{opacity:0;}
+50%{opacity:1;}
+100%{opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+<source src="your-music.mp3">
+</audio>
+
+<!-- INTRO -->
+<div class="slide active" id="slide0">
+<div class="title" id="introText"></div>
+<button id="introBtn" onclick="startFromIntro()" style="display:none;">Continue 💙</button>
+</div>
+
+<!-- Slide 1 -->
+<div class="slide" id="slide1">
+<div class="hero-box">
+<img src="bouqet.jpg" class="bouquet">
+<img src="heart.jpg" class="heartSticker">
+<div class="title">Happy Birthday My Love ❤️</div>
+</div>
+<button onclick="start()">Start</button>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide" id="slide2">
+<div class="title glow">Make a wish</div>
+<img src="cake.jpg" id="cakeImage">
+<button onclick="next(3)">Continue</button>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide" id="slide3">
+<div class="title glow">Open your gift</div>
+<div class="gifts">
+<div class="gift" onclick="showBubbles()">🎁</div>
+<div class="gift" onclick="showBubbles()">🎁</div>
+<div class="gift" onclick="showBubbles()">🎁</div>
+</div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide" id="slide4"></div>
+
+<!-- Slide 5 -->
+<div class="slide" id="slide5">
+<div class="title glow-pink">I’m soo in love with you ❤️</div>
+<button onclick="next(6)">Next</button>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide" id="slide6">
+<div class="title glow">Wanna see your actual gift?</div>
+<button onclick="next(7)">YES</button>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide" id="slide7">
+<div class="polaroid">
+<img src="your-photo.jpg">
+<p>Yesss, I'm your actual gift... haha 😆</p>
+</div>
+<button onclick="next(8)">Next</button>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide" id="slide8">
+<div class="paper">
+<p id="typedText"></p>
+</div>
+<button id="nextBtn" onclick="next(9)" style="display:none;">Next</button>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide" id="slide9">
+<div class="final">I LOVE YOU INFINITE ❤️</div>
+
+<img src="photo1.jpg" class="floating-photo" style="left:20%; top:60%;">
+<img src="photo2.jpg" class="floating-photo" style="right:70%; top:20%;">
+<img src="photo3.jpg" class="floating-photo" style="left:48%; bottom:10%;">
+<img src="photo4.jpg" class="floating-photo" style="right:20%; top:10%;">
+<img src="photo5.jpg" class="floating-photo" style="left:55%; top:15%;">
+<img src="photo6.jpg" class="floating-photo" style="left:75%; bottom:15%;">
+</div>
+
+<script>
+
+/* INTRO */
+const introMessage=`this is my favorite day...
+
+uk why...
+
+cuzzzzz it's my baby's birthdayyyy 💙`;
+let introIndex=0;
+
+function typeIntro(){
+let el=document.getElementById("introText");
+
+if(introIndex<introMessage.length){
+let char=introMessage.charAt(introIndex);
+if(char=="\n"){el.innerHTML+="<br><br>";}
+else{el.innerHTML+=char;}
+introIndex++;
+setTimeout(typeIntro,50);
+}else{
+document.getElementById("introBtn").style.display="block";
+}
+}
+window.onload=typeIntro;
+
+/* MUSIC */
+function startFromIntro(){
+let audio=document.getElementById("bgMusic");
+audio.play().catch(()=>{});
+next(1);
+}
+
+function start(){
+next(2);
+}
+
+/* SLIDES */
+function next(n){
+document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+document.getElementById('slide'+n).classList.add('active');
+
+if(n===5){
+document.querySelectorAll('.bubble').forEach(b=>b.remove());
+}
+
+if(n===8){
+index=0;
+document.getElementById("typedText").innerHTML="";
+typeLetter();
+}
+
+if(n===9){
+createSparkles();
+}
+}
+
+/* BUBBLES */
+let usedPositions=[];
+function isFarEnough(x,y){
+return usedPositions.every(p=>Math.abs(p.x-x)>15||Math.abs(p.y-y)>15);
+}
+
+function showBubbles(){
+next(4);
+usedPositions=[];
+
+messages.forEach((msg,i)=>{
+setTimeout(()=>{
+let x,y;
+do{
+x=Math.random()*85;
+y=Math.random()*85;
+}while(!isFarEnough(x,y));
+
+usedPositions.push({x,y});
+
+let b=document.createElement('div');
+b.className='bubble';
+b.innerText=msg;
+b.style.left=x+'vw';
+b.style.top=y+'vh';
+document.body.appendChild(b);
+
+},i*1400);
+});
+
+setTimeout(()=>next(5),messages.length*1400+1500);
+}
+
+/* MESSAGES */
+const messages=[
+"You came into my life unexpectedly…",
+"and made everything better…",
+"You are my peace…",
+"My happiest place…",
+"The one who makes me feel safe…",
+"And each day I'm falling a bit more for you…",
+"And your absence around me makes me feel so sad…",
+"You don’t know how much you mean to me… 💙",
+"I wanna be with you… always ❤️"
+];
+
+/* LETTER */
+const letterText=`I still smile thinking about how it all started… I only texted you because Nikhil told me to. But who knew that one small moment would turn into something so beautiful, something so *you* and *me* 💫
+
+I never imagined you’d become this special to me… like the kind of love people secretly wish for, pray for… and somehow, I got lucky enough to live it 🥺💙
+
+And honestly? I didn’t even do those 16 Monday fasts… yet here you are, my perfect soulmate. Feels like magic, doesn’t it? ✨
+
+I know life hasn’t been the easiest for you lately… but please remember, I’m always right here, standing beside you, no matter what. I’m not going anywhere… I’m yours till the very end 🤍
+
+Seeing you work so hard, chasing your dreams so wholeheartedly… it makes me so, so proud of you, Omii. You inspire me more than you even realize 🥹
+
+I wish you all the success, all the happiness, all the beautiful things this world has to offer… because you deserve nothing less 💫
+
+And I’m really sorry I couldn’t be there with you on your special day… I wish I could change that. Please forgive me? My love, my wishes, and little surprises are still wrapped just for you 🎁💕
+
+I love you so, so much… more than words can ever hold ❤️
+
+I miss you terribly… sometimes I just feel like taking a flight, running into your arms, and hugging you as tight as I can 💙✨`;
+
+let index=0;
+
+function typeLetter(){
+let el=document.getElementById("typedText");
+let paper=document.querySelector(".paper");
+
+if(index<letterText.length){
+let char=letterText.charAt(index);
+if(char=="\n"){el.innerHTML+="<br>";}
+else{el.innerHTML+=char;}
+index++;
+paper.scrollTop=paper.scrollHeight;
+setTimeout(typeLetter,30);
+}else{
+document.getElementById("nextBtn").style.display="block";
+}
+}
+
+/* hearts */
+setInterval(()=>{
+let h=document.createElement('div');
+h.className='heart';
+h.innerHTML='💙';
+h.style.left=Math.random()*100+'vw';
+h.style.fontSize=(Math.random()*30+20)+'px';
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),10000);
+},400);
+
+/* sparkles */
+function createSparkles(){
+for(let i=0;i<30;i++){
+let s=document.createElement('div');
+s.className='sparkle';
+s.style.left=Math.random()*100+'vw';
+s.style.top=Math.random()*100+'vh';
+document.body.appendChild(s);
+}
+}
+
+</script>
+
+</body>
+</html>
